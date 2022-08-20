@@ -11,6 +11,7 @@
   "dependencies": {
     "@plasmohq/storage": "^0.5.1",
     "aes-js": "^3.1.2",
+    "antd": "^4.22.6",
     "base32-encode": "^2.0.0",
     "base64url": "^3.0.1",
     "crypto-js": "^4.1.1",

@@ -1,16 +1,33 @@
+import { Switch } from "antd"
 import { useEffect, useState } from "react"
 
-import { useStorage } from "@plasmohq/storage"
+import { Storage, useStorage } from "@plasmohq/storage"
+
+import { decode, encode, totpToken } from "./functions/decoding"
+import { getSecret, isLogin } from "./functions/fetch"
+import "./index.less"
 
 function IndexPopup() {
-  const [id, setId] = useState("")
-  const [pwd, setPwd] = useState("")
-  const [info, setInfo] = useStorage("info", { id: "", pwd: "" })
+  const [info, setInfo] = useStorage("info", {
+    checked: false,
+    id: "",
+    secret: ""
+  })
 
-  useEffect(() => {
-    setId(info.id)
-    setPwd(info.pwd)
-  }, [])
+  const onChange = async (c: boolean) => {
+    if (c) {
+      const loggedIn = await isLogin()
+      if (!loggedIn) {
+        alert("카이스트 서비스에 로그인을 한 후 다시 시도해주세요!")
+        return
+      }
+      const id = decode(loggedIn)
+      const sec = await getSecret(id)
+      setInfo({ checked: true, id: id, secret: sec })
+    } else {
+      setInfo({ checked: false, id: "", secret: "" })
+    }
+  }
 
   return (
     <div
@@ -19,12 +36,8 @@ function IndexPopup() {
         flexDirection: "column",
         padding: 16
       }}>
-      <h1>
-        Welcome to your <a href="https://www.plasmo.com">Plasmo</a> Extension!
-      </h1>
-      <input onChange={(e) => setId(e.target.value)} placeholder={info.id} />
-      <input onChange={(e) => setPwd(e.target.value)} placeholder={info.pwd} />
-      <button onClick={() => setInfo({ id: id, pwd: pwd })}>Login</button>
+      <h1>Auto-Login</h1>
+      <Switch checked={info.checked} onChange={onChange} />
     </div>
   )
 }
