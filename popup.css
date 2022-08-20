@@ -1,0 +1,167 @@
+@font-face {
+  font-family: "Godo";
+  font-style: normal;
+  font-weight: 400;
+  src: url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2")
+      format("woff2"),
+    url("//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff")
+      format("woff");
+}
+
+.background {
+  width: 320px;
+  height: 500px;
+  padding: 0 !important;
+}
+
+.logo {
+  font-family: "Helvetica", "Arial", sans-serif;
+  padding: 10px;
+  width: 100%;
+  height: 25%;
+  background-color: rgb(223, 238, 249);
+  font-size: 40pt;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  color: rgb(255, 162, 0);
+  margin: 5px;
+}
+
+.main {
+  width: 100%;
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.message {
+  font-family: "Godo", sans-serif;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.message .red {
+  color: rgb(179, 7, 7);
+  font-size: large;
+  font-weight: 1000;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.message .blue {
+  color: rgb(20, 8, 188);
+  font-size: large;
+  font-weight: 1000;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.message .green {
+  color: rgb(43, 180, 9);
+  font-size: large;
+  font-weight: 1000;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.message {
+  display: flex;
+}
+
+.footer {
+  height: 10%;
+  width: 100%;
+  background-color: rgb(239, 243, 245);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main .info {
+  font-family: "Godo", sans-serif;
+  color: rgb(78, 78, 78);
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.footer .credit {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: auto;
+  font-size: 10pt;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.credit .coffee {
+  padding: 5px;
+  border: solid rgb(192, 192, 192);
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.credit .coffee img {
+  height: 12pt;
+}
+
+.credit .coffee:hover {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.main input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.main label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 200px;
+  height: 100px;
+  background: rgb(111, 128, 142);
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.main label:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 90px;
+  height: 90px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.main input:checked + label {
+  background: rgb(184, 221, 248);
+}
+
+.main input:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+.main label:active:after {
+  width: 130px;
+}

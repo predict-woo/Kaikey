@@ -11,6 +11,7 @@ interface Info {
   checked: boolean,
   id: string,
   secret: string
+  name: string
 }
 
 export const config: PlasmoContentScript = {
