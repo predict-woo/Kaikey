@@ -6,10 +6,9 @@ import { encode, totpToken } from "../functions/decoding"
 
 const storage = new Storage()
 
-
 interface Info {
-  checked: boolean,
-  id: string,
+  checked: boolean
+  id: string
   secret: string
   name: string
 }
@@ -21,13 +20,12 @@ export const config: PlasmoContentScript = {
 
 // main function
 async function main() {
+  const url: string = window.location.href
 
-  const url = window.location.href
+  const info: Info = await storage.get("info")
 
-  const info = <Info> await storage.get("info")
-
-  if(!info.checked){
-    return;
+  if (!info.checked) {
+    return
   }
 
   const id = info.id

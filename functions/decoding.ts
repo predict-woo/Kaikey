@@ -50,7 +50,11 @@ function decrypt(encrypted: any): any {
   const decryptedBytes = aesCbc.decrypt(encryptedBytes)
   const chars = aesjs.utils.utf8.fromBytes(decryptedBytes) as string
   const res = chars.substring(0, chars.indexOf("}") + 1)
-  return JSON.parse(res)
+  if (res) {
+    return JSON.parse(res)
+  } else {
+    return null
+  }
 }
 
 // convert word array to uint8 array
@@ -58,8 +62,8 @@ function convert_word_array_to_uint8Array(wordArray: any): any {
   var len = wordArray.words.length,
     u8_array = new Uint8Array(len << 2),
     offset = 0,
-    word,
-    i
+    word: number,
+    i: number
   for (i = 0; i < len; i++) {
     word = wordArray.words[i]
     u8_array[offset++] = word >> 24

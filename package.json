@@ -2,7 +2,7 @@
   "name": "kaikey",
   "displayName": "Kaikey",
   "version": "0.0.0",
-  "description": "A basic Plasmo extension.",
+  "description": "A KAIST auto login tool",
   "author": "andyy",
   "scripts": {
     "dev": "plasmo dev",
