@@ -48,7 +48,9 @@ function decrypt(encrypted: any): any {
   const aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, ivBytes)
   const encryptedBytes = base64url.toBuffer(encrypted)
   const decryptedBytes = aesCbc.decrypt(encryptedBytes)
-  return JSON.parse(aesjs.utils.utf8.fromBytes(decryptedBytes))
+  const chars = aesjs.utils.utf8.fromBytes(decryptedBytes) as string
+  const res = chars.substring(0, chars.indexOf("}") + 1)
+  return JSON.parse(res)
 }
 
 // convert word array to uint8 array
