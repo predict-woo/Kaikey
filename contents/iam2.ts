@@ -61,7 +61,6 @@ async function main() {
       }
 
       // using switch for expandability; i.e. if we want to add more custom login methods
-      console.log(url)
       switch (url) {
         case "https://iam2.kaist.ac.kr/#/userLogin":
           console.log("detected iamps. using custom login sequence")
