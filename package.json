@@ -36,7 +36,8 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "https://iam2.kaist.ac.kr/*",
+      "https://klms.kaist.ac.kr/*"
     ]
   }
 }

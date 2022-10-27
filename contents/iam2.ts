@@ -2,6 +2,9 @@ import type { PlasmoContentScript } from "plasmo"
 
 import { Storage } from "@plasmohq/storage"
 
+import { IampsLogin } from "~tools/Iamps"
+import { OTPLogin } from "~tools/OTP"
+
 import { encode, totpToken } from "../functions/decoding"
 
 const storage = new Storage()
@@ -14,8 +17,8 @@ interface Info {
 }
 
 export const config: PlasmoContentScript = {
-  matches: ["https://iam2.kaist.ac.kr//*"],
-  run_at: "document_start"
+  matches: ["https://iam2.kaist.ac.kr/*"],
+  run_at: "document_end"
 }
 
 // main function
@@ -38,11 +41,12 @@ async function main() {
   ) {
     if (id) {
       const token = totpToken(sec)
-
-      let location = "https://iam2.kaist.ac.kr/#/user/main"
+      let isOTP = "Y"
+      let param
+      let location
 
       if (url.includes("#/commonLogin")) {
-        const param = url.split("=")[2]
+        param = url.split("=")[2]
         const location_resp = await fetch(
           "https://iam2.kaist.ac.kr/user/getClientName",
           {
@@ -56,20 +60,17 @@ async function main() {
         location = location_json.url
       }
 
-      await fetch("https://iam2.kaist.ac.kr/api/sso/login", {
-        credentials: "include",
-        method: "POST",
-        body: new URLSearchParams({
-          user_id: encode(id),
-          otp: token,
-          login_page: "L_P_IAMPS",
-          param_id: "",
-          auth_type_2nd: "motp",
-          alrdln: "T"
-        })
-      })
-
-      window.location.href = location
+      // using switch for expandability; i.e. if we want to add more custom login methods
+      console.log(url)
+      switch (url) {
+        case "https://iam2.kaist.ac.kr/#/userLogin":
+          console.log("detected iamps. using custom login sequence")
+          await IampsLogin(id, token)
+          break
+        default:
+          console.log("detected normal website. using default login sequence")
+          await OTPLogin(id, token, param, location)
+      }
     }
   }
 }

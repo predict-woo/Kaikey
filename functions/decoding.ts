@@ -12,11 +12,11 @@ function generateRandom(e: number): string {
 
 // standard decoding for KAIST
 function decode(inp: string): string {
-  const t = CryptoJS.enc.Utf8.parse("DRfNfor672rSksX2")
+  const t = CryptoJS.enc.Utf8.parse(process.env.DECODE_KEY)
   const a = CryptoJS.enc.Base64.parse(inp.split("^")[1])
   const n = CryptoJS.enc.Base64.stringify(a)
   const o = CryptoJS.AES.decrypt(n, t, {
-    iv: CryptoJS.enc.Utf8.parse("1234567890123456"),
+    iv: CryptoJS.enc.Utf8.parse(process.env.DECODE_IV),
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.ZeroPadding
   })
@@ -26,10 +26,10 @@ function decode(inp: string): string {
 
 // standard encoding for KAIST
 function encode(id: string): string {
-  const t = CryptoJS.enc.Utf8.parse("DRfNfor672rSksX2"),
+  const t = CryptoJS.enc.Utf8.parse(process.env.DECODE_KEY),
     a = CryptoJS.enc.Utf8.parse(id + "$$" + generateRandom(5)),
     n = CryptoJS.AES.encrypt(a, t, {
-      iv: CryptoJS.enc.Utf8.parse("1234567890123456"),
+      iv: CryptoJS.enc.Utf8.parse(process.env.DECODE_IV),
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.ZeroPadding
     })
@@ -39,8 +39,8 @@ function encode(id: string): string {
 
 // decrypt secret
 function decrypt(encrypted: any): any {
-  const key = "Zpv6hLyuLyM5WNa0"
-  const iv = "Zpv6hLyuLyM5WNa0"
+  const key = process.env.DECRYPT_KEY
+  const iv = process.env.DECRYPT_KEY
 
   const keyBytes = aesjs.utils.utf8.toBytes(key)
   const ivBytes = aesjs.utils.utf8.toBytes(iv)

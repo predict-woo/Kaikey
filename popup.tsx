@@ -28,10 +28,13 @@ function IndexPopup() {
         alert("카이스트 서비스에 로그인을 한 후 다시 시도해주세요!")
         return
       }
+      console.log(loggedIn)
       const id = decode(loggedIn)
+      console.log(id)
       const data = (await getUserInfoById(id)) as Data
       const name = decode(data.koreanName)
       const sec = await getSecret(id)
+      console.log(sec)
       setInfo({ checked: true, id: id, secret: sec, name: name })
     } else {
       setInfo({ checked: false, id: "", secret: "", name: "" })
